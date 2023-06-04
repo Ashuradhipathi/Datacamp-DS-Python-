@@ -419,4 +419,21 @@ plt.xticks(rotation=90)
 
 plt.show()
 ```
+﻿## Intermediate Data Visualization with Seaborn
 
+Seaborn is a popular data visualization library in Python. Here are some examples of its usage:
+
+### Histograms and Distribution Plots
+- To create a histogram, use `sns.histplot(df)`.
+- To create a distribution plot with a histogram and a kernel density estimate, use `sns.displot(df, bins=10, kde=True)`.
+- Alternatively, you can use a kernel density estimate plot with a rug plot and filled areas using `sns.displot(df, kind="kde", rug=True, fill=True)`.
+- To create an empirical cumulative distribution function (ECDF) plot, use `sns.displot(df, kind="ecdf")`.
+
+### Regression Plots
+- To display a scatter plot with a regression line, use `sns.regplot(data=df, x=x, y=y)`.
+- Another method to create regression plots is `sns.lmplot(data=df, x=x, y=y)`.
+- For faceting, there are two options: hue-based faceting and col/row-based faceting.
+  - Hue-based faceting: Use `sns.lmplot(data=df, x=x, y=y, hue=hue)` to create a single plot with different colors based on a categorical variable.
+  - Col or row-based faceting: Use `sns.lmplot(data=df, x=x, y=y, col=col)` to create two or more plots based on a categorical variable.
+
+Note: The code examples provided assume that `df` is a DataFrame containing the data, `x` and `y` are the column names representing the variables of interest, and `hue` and `col` are optional categorical variables used for faceting.
