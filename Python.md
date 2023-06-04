@@ -319,3 +319,49 @@ print(total)
 In the above code, we read the CSV file "data.csv" in chunks of 1000 rows at a time. We then calculate the sum of the "x" column for each chunk and store the results in a list. Finally, we sum up all the chunk results to obtain the total.
 
 These examples provide a basic understanding of iterators and how to work with them in Python.
+
+﻿## List Comprehension
+
+- Adding a for loop inside a list to add items:
+  ```python
+  list1 = [item for item in list2]
+  ```
+
+- Creating conditional statements in comprehensions:
+  ```python
+  list1 = [i for i in list2 if i in list2]
+  list1 = [i if i%2==0 else 0 for num in range(r)]
+  ```
+
+## Dictionary Comprehensions
+
+- Similar to list comprehensions, but we use `{}` instead:
+  ```python
+  dict1 = {d: -d for d in dict2}
+  ```
+
+## Generator Expressions
+
+- If we use `()` instead of `[]`, we create a generator object.
+- It is sort of like an iterator object.
+- Works well for large-sized objects.
+- You can generate values using the `yield` keyword.
+
+Example:
+```python
+gen1 = (i for i in gen2)
+next(gen1)
+```
+
+- You can also create generator functions using the `yield` keyword.
+
+Example:
+```python
+def num(n):
+    i = 0
+    while i < n:
+        yield 1
+        i += 1
+```
+
+
