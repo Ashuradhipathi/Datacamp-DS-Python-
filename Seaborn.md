@@ -437,3 +437,273 @@ Seaborn is a popular data visualization library in Python. Here are some example
   - Col or row-based faceting: Use `sns.lmplot(data=df, x=x, y=y, col=col)` to create two or more plots based on a categorical variable.
 
 Note: The code examples provided assume that `df` is a DataFrame containing the data, `x` and `y` are the column names representing the variables of interest, and `hue` and `col` are optional categorical variables used for faceting.
+
+﻿# Using Correct Seaborn Styles
+
+## Setting Styles
+Seaborn provides various styles to enhance the appearance of plots. Here's how you can set different styles:
+
+1. **Default Style:**
+```python
+import seaborn as sns
+sns.set()
+```
+This sets the default style of seaborn.
+
+2. **Trying Different Styles:**
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+styles = ['white', 'dark', 'whitegrid']
+
+for style in styles:
+    sns.set_style(style)
+    sns.displot(df)
+    plt.show()
+```
+This code iterates over a list of styles and applies each style to the plot using `sns.set_style()`. It then displays a distribution plot (`sns.displot()`) and shows the plot using `plt.show()`.
+
+## Removing Lines on Axes
+To remove the lines on the x and y axes, you can use the `sns.despine()` function:
+```python
+import seaborn as sns
+
+sns.despine()
+```
+
+## Colors in Seaborn
+
+Seaborn provides various color-related functions to customize plots. Here's how you can work with colors:
+
+1. **Setting Color Parameter:**
+To use color codes in Seaborn, you can enable the `color_code` parameter using `sns.set(color_code=True)`.
+
+2. **Setting Color Palette:**
+You can set a custom color palette for your plots using `sns.set_palette()`.
+```python
+import seaborn as sns
+
+sns.set_palette("name_of_palette")
+```
+You can use the `sns.palplot()` function to visualize the color palette.
+
+3. **Creating Custom Palette:**
+To create your own color palette, you can use `sns.color_palette()`.
+```python
+import seaborn as sns
+
+custom_palette = sns.color_palette("color", number_of_colors)
+```
+
+## Customizing with Matplotlib
+
+You can further customize your plots using Matplotlib. Here's an example of how to do it:
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+sns.displot(df, ax=ax)
+ax.set(title="Plot Title")
+```
+In this example, a figure (`fig`) and axes (`ax`) objects are created using `plt.subplots()`. The seaborn plot is then plotted on the axes using `sns.displot(df, ax=ax)`. You can customize the plot by setting attributes of the axes object, such as the title using `ax.set(title="Plot Title")`.
+
+**Note:** Remember to import the necessary libraries (`seaborn` and `matplotlib.pyplot`) before using these functions.
+
+# Categorical Plot Types
+
+Seaborn provides several types of categorical plots that can be divided into three groups:
+
+**Group 1: Stripplots and Swarmplots**
+- Stripplot(): Plots all the values of a categorical variable along the x-axis.
+- Swarmplot(): Similar to stripplot, but avoids overlapping points by adjusting their positions. Not suitable for large datasets.
+
+**Group 2: Boxplot, Violinplot, and Boxenplot**
+- Boxplot(): Displays the distribution of a continuous variable within different categories using quartiles and outliers.
+- Violinplot(): Shows the distribution of a continuous variable across different categories using a kernel density estimation plot.
+- Boxenplot(): Similar to boxplot, but provides additional information about the shape of the distribution.
+
+**Group 3: Countplot, Pointplot, Barplot**
+- Countplot(): Displays the count of observations in each category as bars.
+- Pointplot(): Shows the average value of a continuous variable for different categories using points and line segments.
+- Barplot(): Represents an estimate of central tendency and confidence interval for a continuous variable in each category using bars.
+
+## Regression Plots
+Regression plots are useful for analyzing correlations between variables.
+
+- regplot(): Plots a scatterplot of the relationship between two variables, along with a fitted regression line.
+    - Example: sns.regplot(data, x, y, marker="+")
+- residplot(): Plots the residuals of the regression model to assess the goodness of fit.
+- To improve the estimation and reach conclusions faster, you can use additional parameters:
+    1) jitters: x_jitter
+    2) estimators: x_estimator
+    3) Bins: x_bins
+    - Example: sns.regplot(data, x, y, order=2, x_jitter=True, x_estimator=np.mean, x_bins=10)
+
+## Matrix Plots
+Matrix plots are useful for visualizing correlations and trends in datasets.
+
+- Heatmap(): Seaborn's heatmap function is commonly used for this purpose.
+- To prepare the dataset for a heatmap, you can use the crosstab() function in pandas to extract the required data.
+- Building a heatmap:
+    - Example: sns.heatmap(pd.crosstab(df['column1'], df['column2'], values=df['values'], aggfunc=''))
+- Customizing a heatmap:
+    - Example: sns.heatmap(df, annot=True, fmt="d", cmap="coolwarm", cbar=False, linewidths=.5)
+    - Parameters:
+        - annot: Displays the data values in each cell.
+        - fmt: Format of the values (e.g., integers, floats).
+        - cmap: Color scheme for the heatmap.
+        - cbar: Determines whether to display the color bar scale.
+        - linewidths: Separation space between the cells.
+- Centering the heatmap:
+    - You can focus on specific values within the heatmap by setting the center parameter.
+    - Example: center=df.loc[start_index:end_index]
+
+**Stripplot:**
+```python
+import seaborn as sns
+
+sns.stripplot(data=df, x='category', y='value')
+```
+
+**Swarmplot:**
+```python
+import seaborn as sns
+
+sns.swarmplot(data=df, x='category', y='value')
+```
+
+**Boxplot:**
+```python
+import seaborn as sns
+
+sns.boxplot(data=df, x='category', y='value')
+```
+
+**Violinplot:**
+```python
+import seaborn as sns
+
+sns.violinplot(data=df, x='category', y='value')
+```
+
+**Boxenplot:**
+```python
+import seaborn as sns
+
+sns.boxenplot(data=df, x='category', y='value')
+```
+
+**Countplot:**
+```python
+import seaborn as sns
+
+sns.countplot(data=df, x='category')
+```
+
+**Pointplot:**
+```python
+import seaborn as sns
+
+sns.pointplot(data=df, x='category', y='value')
+```
+
+**Barplot:**
+```python
+import seaborn as sns
+
+sns.barplot(data=df, x='category', y='value')
+```
+
+**Regplot:**
+```python
+import seaborn as sns
+
+sns.regplot(data=df, x='x', y='y', marker='+')
+```
+
+**Residplot:**
+```python
+import seaborn as sns
+
+sns.residplot(data=df, x='x', y='y')
+```
+
+**Heatmap:**
+```python
+import seaborn as sns
+import pandas as pd
+
+# Prepare the dataset using crosstab()
+heatmap_data = pd.crosstab(df['column1'], df['column2'], values=df['values'], aggfunc='')
+
+sns.heatmap(heatmap_data)
+```
+
+Please note that you need to replace `'category'`, `'value'`, `'x'`, `'y'`, `'column1'`, `'column2'`, and `'values'` with the appropriate column names from your dataset.
+
+﻿# Seaborn Plotting Techniques
+
+## Faceting with FacetGrid, catplot, and lmplot
+
+- Faceting refers to having multiple plots based on different categories or variables.
+- The `FacetGrid` class in Seaborn is used for creating faceted plots.
+    ```
+    g = sns.FacetGrid(df, col="")
+    g.map(sns.boxplot, x, order=[''])
+    ```
+    This example creates a facet grid with one column and maps a boxplot to each column based on the 'x' variable.
+- `catplot` is a simpler way to create faceted plots in Seaborn.
+    ```
+    sns.catplot(x, df, col, kind='box')
+    ```
+    This function creates a categorical plot (boxplot in this case) with multiple columns based on the 'x' variable.
+- `lmplot` is another convenient way to create faceted plots, especially for linear regression analysis.
+    ```
+    sns.lmplot(x, y, data, col, row)
+    ```
+    This function creates a linear regression plot with multiple columns and rows based on 'x' and 'y' variables.
+
+## PairGrid and pairplot for Pairwise Relationships
+
+- `PairGrid` allows you to create a grid of subplots for pairwise relationships between variables.
+    ```
+    g = sns.PairGrid(df, vars=[''])
+    g = g.map(sns.scatterplot)
+    g = g.map_diag(sns.histplot)
+    g = g.map_offdiag(sns.barplot)
+    ```
+    This example creates a PairGrid with a scatterplot in the off-diagonal subplots, histograms on the diagonal, and barplots in the lower triangle.
+- `pairplot` is a simplified version of PairGrid that creates a grid of pairwise plots.
+    ```
+    sns.pairplot(df, vars, kind, diag_kind)
+    ```
+    This function creates scatterplots by default but can be customized using the `kind` parameter. The `diag_kind` parameter determines the plot type for the diagonal subplots.
+
+## JointGrids and jointplot for Joint Distributions
+
+- `JointGrid` is used to create grids for joint distributions between two variables.
+    ```
+    g = sns.JointGrid(df, x, y)
+    g.plot(sns.regplot, sns.histplot)
+    g = g.plot_joint(sns.kdeplot)
+    g = g.plot_marginals(sns.kdeplot, shade=True)
+    ```
+    This example creates a JointGrid with a regression plot and a histogram, along with kernel density estimates on the joint plot and marginal plots.
+- `jointplot` is a simplified function for creating joint distributions.
+    ```
+    sns.jointplot(x, y, data, kind)
+    ```
+    This function creates a scatterplot by default but can be customized using the `kind` parameter.
+
+## Selecting Seaborn Plots
+
+- For univariate distributions, use `displot()` method.
+- For regression analysis, use a regression plot like `lmplot()`.
+- For categorical data, use `catplot()`.
+- To visualize the interaction between two variables, use pair or joint plots.
+
+These are some of the commonly used Seaborn plotting techniques. By leveraging the capabilities of Seaborn, you can create informative and visually appealing visualizations for your data analysis tasks.
+
